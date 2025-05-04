@@ -16,6 +16,7 @@ The app provides a simple yet powerful solution for users who want to stay on to
 
 Whether you are managing work deadlines, study schedules, or personal to-dos, TaskStack keeps everything organized in one place, helping you maintain productivity and focus.
 
+
 ![Screenshot 2025-05-04 162129](https://github.com/user-attachments/assets/dae0c087-3010-44eb-94bd-145132920d89)
 
 ![Screenshot 2025-05-04 162347](https://github.com/user-attachments/assets/985a63c6-daac-4e13-80e3-fe3ca112ad37)
