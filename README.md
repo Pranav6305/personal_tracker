@@ -1,6 +1,4 @@
-# personal_tracker
-
-TaskStack - Task Management Web Application
+# TaskStack - Task Management Web Application
 
 TaskStack is an intuitive, web-based task management application designed to help users stay organized and productive. With a clean, user-friendly interface, TaskStack allows users to manage their tasks efficiently, whether for work, study, or personal goals.
 
