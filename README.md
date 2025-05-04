@@ -15,3 +15,6 @@ Get an overview of their task management with statistics like total tasks, compl
 The app provides a simple yet powerful solution for users who want to stay on top of their responsibilities. It comes with secure user authentication, allowing each user to manage their own task list.
 
 Whether you are managing work deadlines, study schedules, or personal to-dos, TaskStack keeps everything organized in one place, helping you maintain productivity and focus.
+
+![Screenshot 2025-05-04 162424](https://github.com/user-attachments/assets/40fd08ea-ed46-460c-ad8a-1a18adbb566f)
+
