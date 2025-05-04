@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Add New Task</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(120deg, #6a11cb, #25dffc);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        padding: 20px;
+      }
+
+      .task-form-container {
+        background: #ffffff;
+        padding: 40px 35px;
+        border-radius: 16px;
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.15);
+        width: 100%;
+        max-width: 800px;
+        text-align: left;
+        /* animation: fadeIn 0.4s ease-in-out; */
+      }
+
+      h2 {
+        color: #2c3e50;
+        font-size: 2.2rem;
+        text-align: center;
+        margin-bottom: 30px;
+      }
+
+      form {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: space-between;
+      }
+
+      .form-field {
+        flex: 1 1 calc(50% - 20px);
+        min-width: 240px;
+      }
+
+      label {
+        font-weight: bold;
+        color: #34495e;
+        margin-bottom: 5px;
+        display: block;
+        font-size: 1.05rem;
+      }
+
+      input[type="text"],
+      input[type="date"],
+      input[type="time"],
+      input[type="datetime-local"],
+      textarea {
+        width: 100%;
+        padding: 12px 15px;
+        border-radius: 10px;
+        border: 1px solid #ccd1d9;
+        font-size: 1rem;
+        /* transition: border-color 0.3s ease, box-shadow 0.3s ease; */
+        background-color: #f9f9f9;
+      }
+
+      input:focus,
+      textarea:focus {
+        border-color: #3498db;
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.15);
+        background-color: #fff;
+      }
+
+      textarea {
+        resize: vertical;
+        height: 120px;
+      }
+
+      button {
+        background: linear-gradient(to right, #3498db, #8e44ad);
+        color: white;
+        padding: 14px;
+        border: none;
+        border-radius: 10px;
+        font-size: 1.2rem;
+        font-weight: bold;
+        cursor: pointer;
+        /* transition: background 0.3s ease, transform 0.2s ease; */
+        width: 100%;
+      }
+
+      button:hover {
+        background: linear-gradient(to right, #2980b9, #7d3c98);
+        transform: translateY(-2px);
+      }
+
+      .back-link {
+        display: inline-block;
+        text-align: center;
+        margin-top: 25px;
+        color: #3498db;
+        font-size: 1rem;
+        text-decoration: none;
+        /* transition: color 0.3s ease; */
+      }
+
+      .back-link:hover {
+        color: #2c80b4;
+        text-decoration: underline;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(15px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @media (max-width: 600px) {
+        .form-field {
+          flex: 1 1 100%;
+        }
+
+        button {
+          font-size: 1rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="task-form-container">
+      <h2>Add New Task</h2>
+      <form method="post">
+        {% csrf_token %}
+
+        <div class="form-field">
+          <label for="title">Task Name:</label>
+          <input type="text" name="title" id="title" required />
+        </div>
+
+        <div class="form-field">
+          <label for="description">Description:</label>
+          <textarea name="description" id="description"></textarea>
+        </div>
+
+        <div class="form-field">
+          <label for="due_date">Due Date:</label>
+          <input type="date" name="due_date" id="due_date" />
+        </div>
+
+        <div class="form-field">
+          <label for="task_time">Task Time:</label>
+          <input type="time" name="task_time" id="task_time" />
+        </div>
+
+        <button type="submit">Add Task</button>
+      </form>
+      <a href="{% url 'task_list' %}" class="back-link">← Back to Task List</a>
+    </div>
+  </body>
+</html>

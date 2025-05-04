@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Signup Page</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #3498db, #8e44ad);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+      }
+      .signup-container {
+        background: #fff;
+        padding: 40px;
+        border-radius: 12px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 400px;
+        text-align: center;
+      }
+      .signup-container h2 {
+        color: #333;
+        font-size: 1.8rem;
+        margin-bottom: 30px;
+        font-weight: 600;
+      }
+      .form-group {
+        margin-bottom: 20px;
+        text-align: left;
+      }
+      .form-group label {
+        font-size: 0.9rem;
+        color: #555;
+        margin-bottom: 5px;
+      }
+      .form-group input {
+        width: 100%;
+        padding: 12px;
+        border: 2px solid #ccc;
+        border-radius: 8px;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+      }
+      .form-group input:focus {
+        border-color: #3498db;
+        outline: none;
+      }
+      .signup-btn {
+        width: 100%;
+        background-color: #3498db;
+        color: #fff;
+        padding: 12px;
+        border: none;
+        border-radius: 8px;
+        font-size: 1.1rem;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+      }
+      .signup-btn:hover {
+        background-color: #2980b9;
+      }
+      .signin-link {
+        margin-top: 20px;
+        display: block;
+        color: #3498db;
+        font-size: 0.9rem;
+        text-decoration: none;
+      }
+      .signin-link:hover {
+        text-decoration: underline;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="signup-container">
+      <h2>Create an Account</h2>
+      <form action="{% url 'signup' %}" method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input type="text" id="username" name="username" required />
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" required />
+        </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" required />
+        </div>
+        <div class="form-group">
+          <label for="confirm-password">Confirm Password</label>
+          <input
+            type="password"
+            id="confirm-password"
+            name="confirm_password"
+            required
+          />
+        </div>
+        <button type="submit" class="signup-btn">Sign Up</button>
+      </form>
+      <a href="{% url 'login' %}" class="signin-link">Already have an account? Sign in</a>
+    </div>
+  </body>
+</html>

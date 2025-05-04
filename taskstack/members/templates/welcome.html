@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Welcome Page</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #3498db, #8e44ad);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+      }
+      .welcome-container {
+        background: #fff;
+        padding: 40px;
+        border-radius: 12px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        width: 100%;
+        max-width: 600px;
+      }
+      .welcome-container h1 {
+        color: #333;
+        font-size: 2.5rem;
+        margin-bottom: 20px;
+        font-weight: 600;
+      }
+      .welcome-container p {
+        color: #555;
+        font-size: 1.2rem;
+        margin-bottom: 30px;
+      }
+      .button {
+        display: inline-block;
+        padding: 12px 25px;
+        background-color: #3498db;
+        color: #fff;
+        font-size: 1rem;
+        border-radius: 8px;
+        text-decoration: none;
+        margin: 10px;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+      }
+      .button:hover {
+        background-color: #2980b9;
+        transform: scale(1.05);
+      }
+      .button:active {
+        background-color: #1f6f92;
+        transform: scale(1);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="welcome-container">
+      <h1 id="welcome-message">Welcome!</h1>
+      <p>
+        We're glad to have you here. You can now access all the features of your
+        account.
+      </p>
+      <a href="/signup" class="button">Sign up</a>
+      <a href="/login" class="button">Logout</a>
+    </div>
+  </body>
+</html>

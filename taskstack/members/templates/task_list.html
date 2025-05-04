@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Task List</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        /* background: linear-gradient(to right, #dfe9f3, #ffffff); */
+        background: linear-gradient(120deg, #6a11cb, #2575fc);
+        min-height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: flex-start;
+        padding-top: 60px;
+      }
+
+      .task-container {
+        background: #ffffff;
+        padding: 40px;
+        border-radius: 20px;
+        box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        width: 90%;
+        max-width: 950px;
+        transition: box-shadow 0.3s ease;
+      }
+
+      .task-container:hover {
+        box-shadow: 0 20px 45px rgba(0, 0, 0, 0.15);
+      }
+
+      h2 {
+        color: #2c3e50;
+        font-size: 2.5rem;
+        margin-bottom: 10px;
+        text-align: center;
+      }
+
+      h3 {
+        color: #7f8c8d;
+        font-size: 1.2rem;
+        margin-bottom: 30px;
+        text-align: center;
+        font-weight: 500;
+      }
+
+      .stats-bar {
+        display: flex;
+        justify-content: space-around;
+        background: linear-gradient(120deg, #6a11cb, #2575fc);
+        color: white;
+        border-radius: 15px;
+        padding: 25px;
+        margin-bottom: 30px;
+        box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+      }
+
+      .stats-bar div {
+        text-align: center;
+        flex: 1;
+      }
+
+      .stats-bar div:not(:last-child) {
+        border-right: 2px solid rgba(255, 255, 255, 0.3);
+        padding-right: 20px;
+      }
+
+      .stats-bar strong {
+        display: block;
+        font-size: 2rem;
+        font-weight: bold;
+        margin-bottom: 5px;
+      }
+
+      .stats-bar p {
+        font-size: 1rem;
+        opacity: 0.9;
+      }
+
+      .add-task-link {
+        display: block;
+        background: linear-gradient(to right, #1abc9c, #16a085);
+        color: #fff;
+        padding: 15px 0;
+        border-radius: 12px;
+        text-align: center;
+        font-size: 1.1rem;
+        font-weight: bold;
+        text-decoration: none;
+        margin-bottom: 30px;
+        box-shadow: 0 5px 15px rgba(22, 160, 133, 0.2);
+        transition: all 0.3s ease;
+      }
+
+      .add-task-link:hover {
+        background: linear-gradient(to right, #16a085, #1abc9c);
+        transform: translateY(-2px);
+      }
+
+      ul {
+        list-style: none;
+        padding: 0;
+      }
+
+      li {
+        background: #fdfdfd;
+        border: 1px solid #e1e4e8;
+        margin: 15px 0;
+        padding: 20px;
+        border-radius: 12px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+      }
+
+      li:hover {
+        transform: scale(1.01);
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
+      }
+
+      li strong {
+        font-size: 1.1rem;
+        color: #2c3e50;
+      }
+
+      li a {
+        text-decoration: none;
+        color: #3498db;
+        font-weight: 500;
+        margin-left: 18px;
+        transition: color 0.3s ease;
+      }
+
+      li a:hover {
+        color: #1d6fa5;
+      }
+
+      .status {
+        display: inline-block;
+        font-size: 1rem;
+        font-weight: 600;
+        padding: 4px 10px;
+        border-radius: 8px;
+        margin-left: 10px;
+      }
+
+      .status.incomplete {
+        background-color: #e77e3c;
+        color: #fff;
+      }
+
+      .status.completed {
+        background-color: #38cc2e;
+        color: #fff;
+      }
+
+      @media (max-width: 768px) {
+        .stats-bar {
+          flex-direction: column;
+          gap: 15px;
+        }
+
+        .stats-bar div:not(:last-child) {
+          border-right: none;
+          border-bottom: 2px solid rgba(255, 255, 255, 0.2);
+          padding-right: 0;
+          padding-bottom: 15px;
+        }
+
+        li {
+          flex-direction: column;
+          align-items: flex-start;
+          gap: 10px;
+        }
+
+        li div:last-child {
+          align-self: flex-end;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="task-container">
+      <h2>Welcome, {{ user.username }}!</h2>
+      <h3>Your Tasks Overview</h3>
+
+      <div class="stats-bar">
+        <div>
+          <strong>{{ total_tasks }}</strong>
+          <p>Total Tasks</p>
+        </div>
+        <div>
+          <strong>{{ completed_tasks }}</strong>
+          <p>Completed Tasks</p>
+        </div>
+        <div>
+          <strong>{{ tasks_undone }}</strong>
+          <p>Tasks to finish</p>
+        </div>
+      </div>
+
+      <a href="{% url 'add_task' %}" class="add-task-link">➕ Add New Task</a>
+
+      <ul>
+        {% for task in tasks %}
+        <li>
+          <div>
+            <strong>{{ task.title }}</strong> — {{ task.due_date }}
+            <span
+              class="status {% if task.is_completed %}completed{% else %}incomplete{% endif %}"
+            >
+              {% if task.is_completed %} ✅ Completed {% else %} ❌ Pending {% endif %}
+            </span>
+          </div>
+          <div>
+            {% if task.is_completed %}
+            <a href="{% url 'undo_task' task.id %}">🔄 Mark Undone</a>
+            {% else %}
+            <a href="{% url 'complete_task' task.id %}">✅ Mark Done</a>
+            {% endif %}
+            <a href="{% url 'delete_task' task.id %}">🗑️ Delete</a>
+          </div>
+        </li>
+        {% empty %}
+        <li>No tasks yet!</li>
+        {% endfor %}
+      </ul>
+    </div>
+  </body>
+</html>
