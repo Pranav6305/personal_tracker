@@ -17,10 +17,9 @@ from django.db import models
 class Task(models.Model):
     user = models.ForeignKey(Signup, on_delete=models.CASCADE)
     title = models.CharField(max_length=200)
-    description = models.TextField()
     due_date = models.DateField()
     is_completed = models.BooleanField(default=False)
-    completion_date = models.DateTimeField(null=True, blank=True)  # ✅ Add this line
+    completion_date = models.DateTimeField(null=True, blank=True) 
     updated_at = models.DateTimeField(auto_now=True)
 
     def mark_completed(self):
