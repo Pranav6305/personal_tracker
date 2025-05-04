@@ -35,9 +35,16 @@
         box-shadow: 0 20px 45px rgba(0, 0, 0, 0.15);
       }
 
-      h2 {
+      h1 {
         color: #2c3e50;
         font-size: 2.5rem;
+        margin-bottom: 10px;
+        text-align: center;
+      }
+
+      h2 {
+        color: #2c3e50;
+        font-size: 1.5rem;
         margin-bottom: 10px;
         text-align: center;
       }
@@ -165,8 +172,40 @@
       }
 
       .status.completed {
-        background-color: #38cc2e;
+        background-color: #1abc9c;
         color: #fff;
+      }
+
+      .filter-buttons {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 20px;
+        gap: 30px;
+      }
+
+      .filter-link {
+        background: #3498db;
+        color: #fff;
+        padding: 10px 20px;
+        border-radius: 10px;
+        text-decoration: none;
+        font-weight: bold;
+        transition: background 0.3s ease, transform 0.2s ease;
+      }
+
+      .filter-link:hover {
+        background: #2980b9;
+        transform: translateY(-2px);
+      }
+
+      .filter-link.active {
+        background: #16a085;
+        transform: translateY(-2px);
+      }
+
+      .filter-link:focus {
+        outline: none;
+        box-shadow: 0 0 10px rgba(52, 152, 219, 0.7);
       }
 
       @media (max-width: 768px) {
@@ -199,11 +238,17 @@
         .add-task-link {
           width: 100%;
         }
+        .filter-buttons {
+          flex-direction: column;
+          align-items: center;
+          margin-bottom: 30px;
+        }
       }
     </style>
   </head>
   <body>
     <div class="task-container">
+      <center><h1>TaskStack</h1></center>
       <h2>Welcome, {{ user.username }}!</h2>
       <h3>Your Tasks Overview</h3>
 
@@ -228,30 +273,50 @@
         <a href="{% url 'add_task' %}" class="add-task-link">➕ Add New Task</a>
       </div>
 
+      <div class="filter-buttons">
+        <a href="{% url 'task_list_filtered' 'all' %}" class="filter-link"
+          >All Tasks</a
+        >
+        <a
+          href="{% url 'task_list_filtered' 'completed' %}"
+          class="filter-link"
+          style="background-color: #1abc9c"
+          >Completed Tasks</a
+        >
+        <a
+          href="{% url 'task_list_filtered' 'pending' %}"
+          class="filter-link"
+          style="background-color: #e77e3c"
+          >Pending Tasks</a
+        >
+      </div>
+
       <ul>
         {% for task in tasks %}
-          <li>
-            <div>
-              <strong>{{ task.title }}</strong> — {{ task.due_date }}
-              <span class="status {% if task.is_completed %}completed{% else %}incomplete{% endif %}">
-                {% if task.is_completed %} ✅ Completed {% else %} ❌ Pending {% endif %}
-              </span>
-            </div>
-            <div>
-              {% if task.is_completed %}
-                <a href="{% url 'undo_task' task.id %}">🔄 Mark Undone</a>
-              {% else %}
-                <a href="{% url 'complete_task' task.id %}">✅ Mark Done</a>
-              {% endif %}
-              <a href="{% url 'edit_task' task.id %}">✏️ Edit</a>
-              <a href="{% url 'delete_task' task.id %}">🗑️ Delete</a>
-            </div>
-          </li>
+        <li>
+          <div>
+            <strong>{{ task.title }}</strong> — {{ task.due_date }}
+            <span
+              class="status {% if task.is_completed %}completed{% else %}incomplete{% endif %}"
+            >
+              {% if task.is_completed %} ✅ Completed {% else %} ❌ Pending
+              {%endif %}
+            </span>
+          </div>
+          <div>
+            {% if task.is_completed %}
+            <a href="{% url 'undo_task' task.id %}">🔄 Mark Undone</a>
+            {% else %}
+            <a href="{% url 'complete_task' task.id %}">✅ Mark Done</a>
+            {% endif %}
+            <a href="{% url 'edit_task' task.id %}">✏️ Edit</a>
+            <a href="{% url 'delete_task' task.id %}">🗑️ Delete</a>
+          </div>
+        </li>
         {% empty %}
-          <li>No tasks yet!</li>
+        <li>No tasks yet!</li>
         {% endfor %}
       </ul>
-      
     </div>
   </body>
 </html>

@@ -42,32 +42,62 @@ def welcome(request):
     return render(request, 'welcome.html')
 
 # Task List View
-def task_list(request):
+# def task_list(request):
+#     username = request.session.get('username')
+#     user = Signup.objects.filter(username=username).first()
+#     if not user:
+#         return redirect('login')
+
+#     tasks = Task.objects.filter(user=user)
+
+#     total_tasks = tasks.count()
+#     completed_tasks = tasks.filter(is_completed=True).count()
+#     completed_today = tasks.filter(is_completed=True, completion_date__date=date.today()).count()
+
+#     completed_before_deadline = 0
+#     for task in tasks.filter(is_completed=True):
+#         if task.completion_date and task.completion_date.date() <= task.due_date:
+#             completed_before_deadline += 1
+
+#     context = {
+#         'user': user,
+#         'tasks': tasks,
+#         'total_tasks': total_tasks,
+#         'completed_tasks': completed_tasks,
+#         'tasks_undone': (total_tasks - completed_tasks),
+#     }
+
+#     return render(request, 'task_list.html', context)
+
+from django.shortcuts import render, redirect
+from .models import Task
+
+def task_list(request, status=None):
     username = request.session.get('username')
     user = Signup.objects.filter(username=username).first()
     if not user:
         return redirect('login')
 
-    tasks = Task.objects.filter(user=user)
+    if status == 'completed':
+        tasks = Task.objects.filter(is_completed=True)
+    elif status == 'pending':
+        tasks = Task.objects.filter(is_completed=False)
+    else:
+        tasks = Task.objects.all()
 
     total_tasks = tasks.count()
     completed_tasks = tasks.filter(is_completed=True).count()
-    completed_today = tasks.filter(is_completed=True, completion_date__date=date.today()).count()
+    tasks_undone = total_tasks - completed_tasks
 
-    completed_before_deadline = 0
-    for task in tasks.filter(is_completed=True):
-        if task.completion_date and task.completion_date.date() <= task.due_date:
-            completed_before_deadline += 1
-
-    context = {
-        'user': user,
+    return render(request, 'task_list.html', {
         'tasks': tasks,
         'total_tasks': total_tasks,
         'completed_tasks': completed_tasks,
-        'tasks_undone': (total_tasks - completed_tasks),
-    }
+        'tasks_undone': tasks_undone,
+        'user': user,
+    })
 
-    return render(request, 'task_list.html', context)
+
 
 # Add Task View (Updated for no description)
 def add_task(request):
